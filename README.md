@@ -4,3 +4,5 @@
 
 [上半场：Docker的入门和架构](https://v.qq.com/x/page/k0347c6z49e.html)
 [下半场：OOP的设计模式](https://v.qq.com/x/page/g03470ewf5g.html)
+
+tech-salon.pdf 是我的 ppt，我专门把演讲者注释加了进去，所以看上去有点怪。
