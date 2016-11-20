@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh_CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo for Python</title>
+	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//cdn.bootcss.com/codemirror/5.20.2/codemirror.css" rel="stylesheet">
+	<style>
+		.CodeMirror{
+			height: auto;
+			border-right: 1px solid black;
+		}
+		#editor{
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		pre#result{
+			height: auto
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h3 style="text-align:center">Python OnlineJudge 示例</h3>
+		<div class="col-xs-6">
+			<h4>代码区域</h4>
+			<div id="editor"></div>
+			<button type="button" class="btn btn-default" id="submit">提交结果</button>
+		</div>
+		<div class="col-xs-6">
+			<h4>输出结果</h4>
+			<pre style="padding-top:10px" id="result">hello world</pre>
+		</div>
+	</div>
+</body>
+<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/codemirror/5.20.2/codemirror.js"></script>
+<script src="//cdn.bootcss.com/codemirror/5.20.2/mode/python/python.min.js"></script>
+<script>
+	myTextarea = document.getElementById("editor");
+	var editor = CodeMirror(myTextarea,{
+		mode: "python",
+		value: "print \"hello world\"\n",
+		lineNumbers: true,
+		tabSize:2,
+		lineWrapping:true,
+	});
+	$($("#submit").click(function(){
+		$("#submit").attr("disabled","disabled");
+		$.post({
+			url:"/",
+			data:{code:editor.getValue()},
+			success:function(msg){
+				$("#result").text(msg);
+			},
+			error:function(){
+				$("#result").text("# submit failed");
+			},
+			fail:function(){
+				$("#result").text("# submit failed");
+			},
+			complete:function(){
+				$("#submit").removeAttr("disabled")
+			}
+		})		
+	}))
+</script>
+</html>
