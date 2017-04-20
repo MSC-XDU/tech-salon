@@ -30,11 +30,11 @@ def index():
         code = request.form.get("code")
         t = int(time.time())
         with open("tmp/test.py", "w+") as f:
-            f.write(code)
+            f.write(code.encode('utf-8'))
         c.start(cid)
         result = c.logs(cid,
                         since=t,
-                        stream=True,
+                        # stream=True,
                         # timestamps=True
         )
         return Response(result,mimetype="text")
@@ -43,12 +43,13 @@ def index():
 
 @app.route("/test")
 def test():
-    def g():
-        for i in range(1000):
-            time.sleep(0.1)
-            yield str(i)+" "
-    sg = g()
-    return Response(sg, mimetype="text/event-stream")
+#    def g():
+#        for i in range(1000):
+#            time.sleep(0.1)
+#            yield str(i)+" "
+#    sg = g()
+#    return Response(sg, mimetype="text/event-stream")
+    return render_template("test.html")
 
 if __name__ == "__main__":
     c, cid = init()
